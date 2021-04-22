@@ -1,7 +1,7 @@
 export interface VersionsTableData {
-  version?: string;
-  registrationsCount?: number;
-  phoneNumbersCount?: number;
+  version: string;
+  registrationsCount: number;
+  phoneNumbersCount: number;
 }
 
 export interface Column {
