@@ -28,6 +28,7 @@ export class VersionListPageComponent {
   ];
 
 
+  isLoading = true;
   isDataLoaded = false;
   isLoadingError = false;
 
@@ -41,9 +42,11 @@ export class VersionListPageComponent {
       this.tableData = json;
 
       this.isDataLoaded = true;
+      this.isLoading = false;
     },
     () => {
         this.isLoadingError = true;
+        this.isLoading = false;
     });
   }
 }

@@ -3,18 +3,23 @@
 </div>
 <div class="page-content">
   <div class="search-panel">
-    <form class="search-panel__form">
-      <mat-form-field>
-        <mat-label>Phone number</mat-label>
-        <input type="text" [formControl]="phoneFormControl" [errorStateMatcher]="matcher" matInput>
-        <mat-error *ngIf="!phoneFormControl.hasError('required')">
-          Please enter a valid phone number
-        </mat-error>
-        <mat-error *ngIf="phoneFormControl.hasError('required')">
-          This field is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </form>
+    <mat-form-field>
+    <mat-label>Phone number</mat-label>
+    <input
+       type="text"
+       matInput
+       [formControl]="phoneFormControl"
+       [errorStateMatcher]="matcher"
+       placeholder="Enter phone number without 8(+7)"
+       (keypress)="handleEnterPress()"
+    >
+    <mat-error *ngIf="!phoneFormControl.hasError('required')">
+      Please enter a valid phone number
+    </mat-error>
+    <mat-error *ngIf="phoneFormControl.hasError('required')">
+      This field is <strong>required</strong>
+    </mat-error>
+    </mat-form-field>
     <button
       mat-flat-button
       color="primary"
@@ -23,6 +28,9 @@
     >
       Get messages
     </button>
+  </div>
+  <div class="spinner-area" *ngIf="isLoading">
+    <mat-spinner diameter="30"></mat-spinner>
   </div>
   <div class="error" *ngIf="isLoadingError">An error occurred while loading data</div>
   <div class="messages-wrapper" *ngIf="isDataLoaded">

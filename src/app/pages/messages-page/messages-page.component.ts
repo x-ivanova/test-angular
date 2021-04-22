@@ -20,6 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class MessagesPageComponent{
   isLoadingError = false;
+  isLoading = false;
   isDataLoaded = false;
 
   messages: Array<Message> = [];
@@ -35,8 +36,13 @@ export class MessagesPageComponent{
 
   constructor(public apiService: ApiService) {}
 
+  handleEnterPress(): void {
+    this.getMessages();
+  }
+
   getMessages(): void {
     if (this.phoneFormControl.status === 'VALID') {
+      this.isLoading = true;
       this.apiService.getMessages(this.phoneFormControl.value).subscribe(
         (res: Array<Message>) => {
           this.messages = res;
@@ -45,11 +51,12 @@ export class MessagesPageComponent{
           this.messages = json;
 
           this.isDataLoaded = true;
+          this.isLoading = false;
         },
         () => {
           this.isLoadingError = true;
+          this.isLoading = false;
         });
     }
   }
-
 }
