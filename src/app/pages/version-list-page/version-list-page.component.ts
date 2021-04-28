@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import { VersionsTableData } from '../../interfaces/table.interface';
 
-// @ts-ignore fake data
-import json from '../../fake-data/version.json';
-
 @Component({
   selector: 'app-version-list-page',
   templateUrl: './version-list-page.component.html',
@@ -37,9 +34,6 @@ export class VersionListPageComponent {
     this.apiService.getVersions().subscribe(
       (res: Array<VersionsTableData>) => {
       this.tableData = res;
-
-      // fake data
-      this.tableData = json;
 
       this.isDataLoaded = true;
       this.isLoading = false;

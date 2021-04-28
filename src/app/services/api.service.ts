@@ -9,15 +9,12 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getVersions(): any {
-    return this.http.get<any>(environment.API_URL);
+    return this.http.get<any>(`${environment.API_URL}/statistic/application`);
   }
 
   getMessages(phoneNumber: string): any {
-    // return this.http.get<any>(
-    //   `${environment.API_URL}?phone=${phoneNumber}`
-    // );
     return this.http.get<any>(
-      'https://jsonplaceholder.typicode.com/users'
+      `${environment.API_URL}/statistic/messages?phone=${phoneNumber}`
     );
   }
 }

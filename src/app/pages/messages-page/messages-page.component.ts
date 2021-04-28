@@ -3,8 +3,6 @@ import { ApiService } from '../../services/api.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {Message} from '../../interfaces/message.interface';
-// @ts-ignore fake data
-import json from '../../fake-data/messages.json';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -27,17 +25,17 @@ export class MessagesPageComponent{
 
   phoneFormControl = new FormControl('', [
     Validators.required,
-    Validators.maxLength(10),
-    Validators.minLength(10),
-    Validators.pattern('[0-9]+'),
+    Validators.pattern('^((\\+7|7|8|)+([0-9]){10})$'),
   ]);
 
   matcher = new MyErrorStateMatcher();
 
   constructor(public apiService: ApiService) {}
 
-  handleEnterPress(): void {
-    this.getMessages();
+  handleEnterPress(evt): void {
+    if (evt.keyCode === 13) {
+      this.getMessages();
+    }
   }
 
   getMessages(): void {
@@ -46,9 +44,6 @@ export class MessagesPageComponent{
       this.apiService.getMessages(this.phoneFormControl.value).subscribe(
         (res: Array<Message>) => {
           this.messages = res;
-
-          // fake data
-          this.messages = json;
 
           this.isDataLoaded = true;
           this.isLoading = false;

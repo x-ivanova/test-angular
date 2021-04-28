@@ -10,8 +10,7 @@
        matInput
        [formControl]="phoneFormControl"
        [errorStateMatcher]="matcher"
-       placeholder="Enter phone number without 8(+7)"
-       (keypress)="handleEnterPress()"
+       (keypress)="handleEnterPress($event)"
     >
     <mat-error *ngIf="!phoneFormControl.hasError('required')">
       Please enter a valid phone number
